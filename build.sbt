@@ -10,6 +10,8 @@ scalaVersion := "2.11.8"
 
 resolvers += Resolver.jcenterRepo
 
+libraryDependencies += "org.scala-lang" % "scala-swing" % "2.11+"
+
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "4.0.0",
   "com.mohiva" %% "play-silhouette-password-bcrypt" % "4.0.0",

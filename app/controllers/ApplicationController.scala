@@ -7,6 +7,10 @@ import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import play.api.i18n.{ I18nSupport, MessagesApi }
 import play.api.mvc.Controller
 import utils.auth.DefaultEnv
+import de.htwg.sudoku.Sudoku
+import de.htwg.sudoku.controller.SudokuController
+//import de.htwg.sudoku.aview.tui.TextUI;
+//import de.htwg.sudoku.controller.ISudokuController;
 
 import scala.concurrent.Future
 
@@ -25,13 +29,20 @@ class ApplicationController @Inject() (
   implicit val webJarAssets: WebJarAssets)
   extends Controller with I18nSupport {
 
+  val controller: SudokuController = Sudoku.controller;
+  //TextUI tui = Sudoku.getInstance().getTui();
+
   /**
    * Handles the index action.
    *
    * @return The result to display.
    */
-  def index = silhouette.SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.home(request.identity)))
+  def index = silhouette.SecuredAction { implicit request =>
+    Ok(views.html.home(request.identity))
+  }
+
+  def sudoku = silhouette.UnsecuredAction { implicit request =>
+    Ok(views.html.sudoku(controller))
   }
 
   /**
